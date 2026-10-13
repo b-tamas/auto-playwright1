@@ -44,6 +44,24 @@ test("auto Playwright example", async ({ page }) => {
 });
 ```
 
+### Setup with OpenRouter
+
+OpenRouter provides an OpenAI-compatible API. Export an OpenRouter API key; the
+library will automatically use OpenRouter's API endpoint when this variable is
+set.
+
+```bash
+export OPENROUTER_API_KEY='sk-or-...'
+```
+
+Optionally, choose a model supported by OpenRouter in the test:
+
+```ts
+await auto("get the header text", { page, test }, {
+  model: "openai/gpt-4o",
+});
+```
+
 ### Setup with Azure OpenAI
 
 Include the StepOptions type with the values needed for connecting to Azure OpenAI.

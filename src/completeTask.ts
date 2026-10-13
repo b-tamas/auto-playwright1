@@ -4,14 +4,18 @@ import { prompt, SYSTEM_PROMPT } from "./prompt";
 import { createActions } from "./createActions";
 
 const defaultDebug = process.env.AUTO_PLAYWRIGHT_DEBUG === "true";
+const openRouterApiKey = process.env.OPENROUTER_API_KEY;
+const openRouterBaseUrl =
+  process.env.OPENROUTER_BASE_URL ?? "https://openrouter.ai/api/v1";
 
 export const completeTask = async (
   page: Page,
   task: TaskMessage,
 ): Promise<TaskResult> => {
   const openai = new OpenAI({
-    apiKey: task.options?.openaiApiKey,
-    baseURL: task.options?.openaiBaseUrl,
+    apiKey: task.options?.openaiApiKey ?? openRouterApiKey,
+    baseURL: task.options?.openaiBaseUrl ??
+      (openRouterApiKey ? openRouterBaseUrl : undefined),
     defaultQuery: task.options?.openaiDefaultQuery,
     defaultHeaders: task.options?.openaiDefaultHeaders,
   });
